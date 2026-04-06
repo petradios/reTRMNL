@@ -1,7 +1,12 @@
 # TRMNL Firmware
 
-created for the [TRMNL](https://usetrmnl.com) e-ink display.
+originally created for the [TRMNL](https://usetrmnl.com) e-ink display.
+forked from Seeed_TRMNL_Eink_Project to provide full functionality with reTerminal E1001
 
+Adding support for
+- forward/backward navigation by utilizing the white buttons 
+- temperature and humidity sensing from the SHT40 sensor
+ 
 ## **Algorithm block scheme**
 
 ```mermaid
