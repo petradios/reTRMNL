@@ -36,8 +36,8 @@ void addHeaders(HTTPClient &https, ApiDisplayInputs &inputs)
   https.addHeader("ID", inputs.macAddress);
   https.addHeader("Content-Type", "application/json");
   https.addHeader("Access-Token", inputs.apiKey);
-  https.addHeader("Temp", String(rtc_sht_temp, 2));
-  https.addHeader("Humid", String(rtc_sht_humid, 2));
+  https.addHeader("Temp", String(inputs.rtc_sht_temp, 2));
+  https.addHeader("Humid", String(inputs.rtc_sht_humid, 2));
   https.addHeader("Refresh-Rate", String(inputs.refreshRate));
   https.addHeader("Battery-Voltage", String(inputs.batteryVoltage));
   https.addHeader("FW-Version", inputs.firmwareVersion);

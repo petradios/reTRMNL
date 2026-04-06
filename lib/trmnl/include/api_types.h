@@ -48,6 +48,8 @@ struct ApiDisplayInputs
 {
   String baseUrl;
   String apiKey;
+  float rtc_sht_temp;
+  float rtc_sht_humid;
   String friendlyId;
   uint32_t refreshRate;
   String macAddress;
