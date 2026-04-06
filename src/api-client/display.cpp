@@ -15,6 +15,8 @@ void addHeaders(HTTPClient &https, ApiDisplayInputs &inputs)
            "ID: %s\n\r"
            "Special function: %d\n\r"
            "Access-Token: %s\n\r"
+           "Temp: %.2f\n\r"
+           "Humid: %.2f\n\r"  
            "Refresh_Rate: %s\n\r"
            "Battery-Voltage: %s\n\r"
            "FW-Version: %s\r\n"
@@ -23,6 +25,8 @@ void addHeaders(HTTPClient &https, ApiDisplayInputs &inputs)
            inputs.macAddress.c_str(),
            inputs.specialFunction,
            inputs.apiKey.c_str(),
+           rtc_sht_temp,
+           rtc_sht_humid,
            String(inputs.refreshRate).c_str(),
            String(inputs.batteryVoltage).c_str(),
            inputs.firmwareVersion.c_str(),
@@ -32,6 +36,8 @@ void addHeaders(HTTPClient &https, ApiDisplayInputs &inputs)
   https.addHeader("ID", inputs.macAddress);
   https.addHeader("Content-Type", "application/json");
   https.addHeader("Access-Token", inputs.apiKey);
+  https.addHeader("Temp", String(rtc_sht_temp, 2));
+  https.addHeader("Humid", String(rtc_sht_humid, 2));
   https.addHeader("Refresh-Rate", String(inputs.refreshRate));
   https.addHeader("Battery-Voltage", String(inputs.batteryVoltage));
   https.addHeader("FW-Version", inputs.firmwareVersion);
@@ -39,8 +45,7 @@ void addHeaders(HTTPClient &https, ApiDisplayInputs &inputs)
   https.addHeader("RSSI", String(inputs.rssi));
   https.addHeader("Width", String(inputs.displayWidth));
   https.addHeader("Height", String(inputs.displayHeight));
-  https.addHeader("Temp", String(rtc_sht_temp));
-  https.addHeader("Humid", String(rtc_sht_humid));
+
 
   if (inputs.specialFunction != SF_NONE)
   {
