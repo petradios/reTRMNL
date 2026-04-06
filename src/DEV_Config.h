@@ -111,6 +111,9 @@
    #define EPD_RST_PIN  12
    #define EPD_DC_PIN   11
    #define EPD_BUSY_PIN 13
+   #define SENSOR_SDA 19
+   #define SENSOR_SCL 20
+
 #else
    #error "Board type not defined. Please define BOARD_WAVESHARE_ESP32_DRIVER or BOARD_TRMNL or BOARD_SEEED_XIAO_ESP32C3 or BOARD_SEEED_XIAO_ESP32S3 in platformio.ini build_flags."
 #endif

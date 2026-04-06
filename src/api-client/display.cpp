@@ -6,6 +6,9 @@
 #include <api_response_parsing.h>
 #include <http_client.h>
 
+extern RTC_DATA_ATTR float rtc_sht_temp;
+extern RTC_DATA_ATTR float rtc_sht_humid;
+
 void addHeaders(HTTPClient &https, ApiDisplayInputs &inputs)
 {
   Log_info("Added headers:\n\r"
@@ -36,6 +39,8 @@ void addHeaders(HTTPClient &https, ApiDisplayInputs &inputs)
   https.addHeader("RSSI", String(inputs.rssi));
   https.addHeader("Width", String(inputs.displayWidth));
   https.addHeader("Height", String(inputs.displayHeight));
+  https.addHeader("Temp", String(rtc_sht_temp));
+  https.addHeader("Humid", String(rtc_sht_humid));
 
   if (inputs.specialFunction != SF_NONE)
   {

@@ -38,6 +38,12 @@
 #include "logo_small.h"
 #include "loading.h"
 #include <wifi-helpers.h>
+#include <Wire.h>
+#include <Adafruit_SHT4x.h>
+Adafruit_SHT4x sht4 = Adafruit_SHT4x();
+// Use RTC_DATA_ATTR so the values survive deep sleep
+RTC_DATA_ATTR float rtc_sht_temp = 0.0;
+RTC_DATA_ATTR float rtc_sht_humid = 0.0;
 
 bool pref_clear = false;
 String new_filename = "";
@@ -115,7 +121,25 @@ void bl_init(void)
   Log_info("BL init success");
   pins_init();
   vBatt = readBatteryVoltage(); // Read the battery voltage BEFORE WiFi is turned on
+// --- Start SHT40 Sensor Read ---
+Wire.begin(19, 20); // Initialize E1001 I2C pins
+if (sht4.begin(&Wire)) {
+  sht4.setPrecision(SHT4X_HIGH_PRECISION);
+  sensors_event_t humidity, temp;
+  sht4.getEvent(&humidity, &temp); // Read the sensor
 
+  // Store in our global RTC variables
+  rtc_sht_temp = temp.temperature;
+  rtc_sht_humid = humidity.relative_humidity;
+
+  // Use %F for floats and double-percent %% for a literal '%' sign
+  Log.info("%s [%d]: SHT40 Success! Temp = %F C, Humid = %F %%\r\n", __FILE__, __LINE__, (double)rtc_sht_temp, (double)rtc_sht_humid);
+} else {
+  rtc_sht_temp = 0.0;
+  rtc_sht_humid = 0.0;
+  Log.info("%s [%d]: SHT40 not found on I2C bus\r\n", __FILE__, __LINE__);
+}
+  // --- End SHT40 Sensor Read ---
 #if defined(BOARD_SEEED_XIAO_ESP32C3)
   delay(2000);
 
