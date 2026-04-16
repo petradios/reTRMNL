@@ -1,6 +1,10 @@
 # TRMNL Firmware
 
-created for the [TRMNL](https://trmnl.com) e-ink display.
+originally created for the [TRMNL](https://trmnl.com) e-ink display.
+
+adding fuctionality for reTermninal E1001 
+- temperature & humidity sensor
+- navigation buttons
 
 ## **Algorithm block scheme**
 
